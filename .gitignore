@@ -1,0 +1,9 @@
+.idea/
+node_modules/
+npm-debug.log
+*.iml
+*.ipr
+*.iws
+reports
+coverage.json
+coverageEnv

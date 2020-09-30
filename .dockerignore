@@ -1,0 +1,5 @@
+.idea/
+.gitignore
+node_modules/
+docker-compose.yaml
+config/data/env.json
