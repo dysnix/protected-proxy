@@ -7,7 +7,7 @@ class OtpValidator {
             throw new Error("Please set `OTP_SECRET` env variable");
         }
 
-        this.token = otp.authenticator.generate(this.secret);
+        otp.totp.options = {window: 10};
     }
 
     getToken() {
