@@ -15,13 +15,15 @@ function getTokenByReq(req) {
 function getProxyServer(proxy) {
     return http.createServer(function (req, res) {
         const token = getTokenByReq(req)
+        req.url = '/'
 
-        if (!token || !validator.isTokenValid(getTokenByReq(req))) {
+        if (!token || !validator.isTokenValid(token)) {
             res.writeHead(403, {'Content-Type': 'text/plain'});
             res.write('Access denied\n');
             res.end();
         } else {
             proxy.web(req, res, err => {
+                console.log(err)
                 res.writeHead(502, {'Content-Type': 'text/plain'});
                 res.write('Bad gateway\n');
                 res.end();
@@ -35,6 +37,7 @@ wsProxyServer = getProxyServer(wsProxy)
 
 wsProxyServer.on('upgrade', function (req, socket, head) {
     const token = getTokenByReq(req)
+    req.url = '/'
 
     wsProxy.on('error', err => {
         socket.end()
